@@ -104,10 +104,10 @@ public:
 		return false;
 	}
 
-	bool isSeparator(string word) {// checks to see if it is a separatoor
+	bool isSeparator(char character) {// checks to see if it is a separatoor
 		vector<string>separators = Tokenmap["separator"];
 		for (int i = 0; i < separators.size(); i++) {
-			if (word == separators[i]) {
+			if (character == separators[i][0]) {
 				return true;
 			}
 		}
