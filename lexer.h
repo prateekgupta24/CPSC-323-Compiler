@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <ctype.h>
+
 using namespace std;
 
 struct Token {
@@ -17,7 +18,14 @@ struct Token {
 		cout << token << "\t" << lexeme << "\n";
 	}
 };
+/*
 
+	To Do:
+	Need to create add function to tokenmap to put identifiers, real, integer when we find them into the map (when it did not already exist)
+	error handling
+	make sure all possibilities are counted for
+
+*/
 class Lexer {
 private:
 	vector<Token> tokens; // stores tokens for one line of code
@@ -57,9 +65,6 @@ public:
 			if (isalpha(number[i])) {// if has a letter
 				return false;
 			}
-			/*else if ((number[i]=='.') && (i!=number.length()-1) && (i != 0)){ // if it has a dot that is not at the end or beginning
-				dot = true;
-			}*/
 			else if ((i > 0) && (i < number.length() - 1)) {//if it it not the first or last char
 				if (number[i] == '.') {
 					char prev = number[i - 1];
@@ -75,7 +80,7 @@ public:
 
 		return false;
 	}
-	bool integer(string number) {// checks to see if it is an integer
+	bool isInteger(string number) {// checks to see if it is an integer
 		if (isReal(number))
 		{
 			return false;
@@ -122,7 +127,33 @@ public:
 		tokens.push_back(t);
 
 	}
-	void printToken() {
+	bool isStartComment(string word) {
+		for (int i = 0; i < word.length(); i++) {
+			char letter = word[i];
+			if (letter = '/') {
+				char nextletter = word[i + 1];
+				if (nextletter == '*') {
+					return true;
+				}
+			}
+		}
+		return false;
+
+	}
+	bool isEndComment(string word) {
+		for (int i = 0; i < word.length(); i++) {
+			char letter = word[i];
+			if (letter = '*') {
+				char nextletter = word[i + 1];
+				if (nextletter == '/') {
+					return true;
+				}
+			}
+		}
+		return false;
+
+	}
+	void printTokens() {
 		for (int i = 0; i < tokens.size(); i++) {
 			tokens[i].print();
 		}
