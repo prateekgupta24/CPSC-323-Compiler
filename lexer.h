@@ -84,17 +84,19 @@ public:
 		if (isReal(number))
 		{
 			return false;
-
 		} 
 		else {
 			for (int i = 0; i < number.length(); i++) {
 				if (isalpha(number[i])) {
 					return false;
 				}
-		
+				else if (!isalnum(number[i])) {
+					if (!((number[i] == '-') && (i == 0))) {
+						return false;
+					}
+				}
 			}
 		}
-		
 		return true;
 	}
 
