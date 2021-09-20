@@ -8,7 +8,7 @@
 #include "file.h"
 using namespace std;
 /*
-	To Do 
+	To Do
 	need more test commands to see if it is working properly - 3 text files with more than 10 line of test code
 	error handling
 	implement write file function from file.h
@@ -20,6 +20,8 @@ int main()
 {
 	Lexer l;
 	string txtFile;
+	int state =0;
+	bool comment = false;
 
 	//get file name
 	cout << "Enter File Name:";
@@ -27,34 +29,29 @@ int main()
 	cout << endl;
 
 	//read txt file
-	vector<string>lines=readFile(txtFile);
+	vector<string>lines = readFile(txtFile);
 
 	// get line from lines and print out the tokens
 	for (int i = 0; i < lines.size(); i++) {
 		string line = lines[i];
-		cout <<"Input: "<< line << endl;
+		cout << "Input: " << line << endl;
 		string word = "";
 
 		//go through each character of the line
 		for (int c = 0; c < line.length(); c++) {
-			 
-			//get char from string 
-			char character = line[c];
 
-			if (character == ' '|| l.isSeparator(character)) {
-				if (word.length() != 0) {
-					if (l.isStartComment(word)) {
-						//checks for the end of comment
-						if (l.isEndComment(word)) {
-							word="";
-						}
-					}
-					else if (l.isKeyword(word)) {
+			//get char from string and convert it to string
+			string character (1, line[c]);
+
+			if (character == " " || l.isSeparator(character)|| l.isOperator(character)|| c== line.length()-1) {
+
+				if (c == line.length() - 1 && character != " ") {
+					word += character;
+				}
+
+				if ((word.length() != 0) && comment==false) {
+					if (l.isKeyword(word)) {
 						l.addToken("Keyword", word);
-						word = "";
-					}
-					else if (l.isOperator(word)) {
-						l.addToken("Operator", word);
 						word = "";
 					}
 					else if (l.isReal(word)) {
@@ -74,20 +71,41 @@ int main()
 					{
 						l.addToken("Unknown", word);
 						word = "";
+	
 					}
 
 				}
 				if (l.isSeparator(character)) {
 					//converts char into string
-					string str(1, character);
-					l.addToken("Separator", str);
+					l.addToken("Separator", character);
+				}
+				else if (l.isOperator(character)) {
+
+					string prevchar(1, line[c - 1]);
+					string nextchar(1, line[c + 1]);
+
+					//check for start of comment
+					if ((character == "*")&& (prevchar=="/") || (character == "*") && (nextchar == "/") || (character == "/") && (nextchar == "*")) {
+						//word += character;
+						//cout << "true- "<<word<<endl;
+						comment = true;
+					}
+					else if ((character == "/") && (prevchar == "*")) {//check of end of comment
+						comment = false;
+						word = "";
+					}
+					else {
+						l.addToken("Operator", character);
+						word = "";
+					}
 				}
 			}
 			else {
 				word += character;
 			}
+			
 		}
-		cout << "Tokens\t\tLexeme"<<endl;
+		cout << "Tokens\t\tLexeme" << endl;
 		l.printTokens();
 		cout << endl;
 	}
