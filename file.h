@@ -18,8 +18,10 @@ error handling
 
 // reads file and makes a vector of lines
 vector<string>  readFile(string filename) {
+
 	vector<string> commandlines;
 	string line;
+
 	ifstream file(filename);
 	if (file.is_open()) {
 		while (getline(file, line)) {
@@ -28,7 +30,12 @@ vector<string>  readFile(string filename) {
 		file.close();
 	}
 	else {
-		cout << "Missing File" << endl;
+		string file;
+		cout << "File does not exist (please make sure to add .txt)" << endl;
+		cout << "Please try again: ";
+		cin >> file;
+		cout << endl;
+		commandlines= readFile(file);
 	}
 	return commandlines;
 
