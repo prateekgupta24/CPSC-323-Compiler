@@ -31,12 +31,13 @@ private:
 	vector<Token> tokens; // stores tokens for one line of code
 	vector<vector<Token>> allTokens;// stores all tokens
 
-	map<string, vector<string>> Tokenmap = { {"keyword", { "while" , "for", "integer", "if", "else", "endif",  "while", "return", "get", "put", "float","double","function" }},
+	map<string, vector<string>> Tokenmap = { {"keyword", { "while" , "for", "integer", "if", "else", "endif",  "while", "return", "get", "put", "float","double","function","true","false" }},
 									{"identifier", {}},
 									{"operator", { "=" , "+" , "-" , "*" , "/" , "<=" , ">=" , ">" , "<", "!=" }},
 									{"separator", {";", "(" , ")", ",", "#"}},
 									{"integer", {}},
-									{"real", {}}
+									{"real", {}},
+									{"unkown", {}}
 	};
 
 public:
