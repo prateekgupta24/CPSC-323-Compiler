@@ -9,7 +9,7 @@
 using namespace std;
 /*
 	To Do 
-	need more test commands to see if it is working properly
+	need more test commands to see if it is working properly - 3 text files with more than 10 line of test code
 	error handling
 	implement write file function from file.h
 
@@ -19,8 +19,15 @@ using namespace std;
 int main()
 {
 	Lexer l;
+	string txtFile;
+
+	//get file name
+	cout << "Enter File Name:";
+	cin >> txtFile;
+	cout << endl;
+
 	//read txt file
-	vector<string>lines=readFile("ReadThis.txt");
+	vector<string>lines=readFile(txtFile);
 
 	// get line from lines and print out the tokens
 	for (int i = 0; i < lines.size(); i++) {
@@ -34,12 +41,7 @@ int main()
 			//get char from string 
 			char character = line[c];
 
-			if (l.isSeparator(character)) {
-				//converts char into string
-				string str(1, character);
-				l.addToken("Separator", str);
-			}
-			else if (character == ' ') {
+			if (character == ' '|| l.isSeparator(character)) {
 				if (word.length() != 0) {
 					if (l.isStartComment(word)) {
 						//checks for the end of comment
@@ -68,8 +70,18 @@ int main()
 						l.addToken("Identifier", word);
 						word = "";
 					}
-				}
+					else
+					{
+						l.addToken("Unknown", word);
+						word = "";
+					}
 
+				}
+				if (l.isSeparator(character)) {
+					//converts char into string
+					string str(1, character);
+					l.addToken("Separator", str);
+				}
 			}
 			else {
 				word += character;
@@ -77,6 +89,8 @@ int main()
 		}
 		cout << "Tokens\t\tLexeme"<<endl;
 		l.printTokens();
+		cout << endl;
 	}
+	system("pause");
 
 }
