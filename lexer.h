@@ -37,7 +37,7 @@ private:
 									{"separator", {";", "(" , ")", ",", "#"}},
 									{"integer", {}},
 									{"real", {}},
-									{"unkown", {}}
+									{"unknown", {}}
 	};
 
 public:
