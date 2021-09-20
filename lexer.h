@@ -92,9 +92,7 @@ public:
 					return false;
 				}
 				else if (!isalnum(number[i])) {
-					if (!((number[i] == '-') && (i == 0))) {
-						return false;
-					}
+					return false;
 				}
 			}
 		}
@@ -112,10 +110,10 @@ public:
 		return false;
 	}
 
-	bool isSeparator(char character) {// checks to see if it is a separatoor
+	bool isSeparator(string character) {// checks to see if it is a separatoor
 		vector<string>separators = Tokenmap["separator"];
 		for (int i = 0; i < separators.size(); i++) {
-			if (character == separators[i][0]) {
+			if (character == separators[i]) {
 				return true;
 			}
 		}
@@ -130,32 +128,7 @@ public:
 		tokens.push_back(t);
 
 	}
-	bool isStartComment(string word) {
-		for (int i = 0; i < word.length(); i++) {
-			char letter = word[i];
-			if (letter = '/') {
-				char nextletter = word[i + 1];
-				if (nextletter == '*') {
-					return true;
-				}
-			}
-		}
-		return false;
 
-	}
-	bool isEndComment(string word) {
-		for (int i = 0; i < word.length(); i++) {
-			char letter = word[i];
-			if (letter = '*') {
-				char nextletter = word[i + 1];
-				if (nextletter == '/') {
-					return true;
-				}
-			}
-		}
-		return false;
-
-	}
 	void printTokens() {
 		for (int i = 0; i < tokens.size(); i++) {
 			tokens[i].print();
