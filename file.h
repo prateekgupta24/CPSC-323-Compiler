@@ -6,15 +6,8 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include "lexer.h"
 using namespace std;
-
-/*
-
-To Do:
-make a function to Create and write to text file our results 
-error handling
-
-*/
 
 // reads file and makes a vector of lines
 vector<string>  readFile(string filename) {
@@ -25,7 +18,10 @@ vector<string>  readFile(string filename) {
 	ifstream file(filename);
 	if (file.is_open()) {
 		while (getline(file, line)) {
-			commandlines.push_back(line);
+			if (line.size() != 0 ) {
+				commandlines.push_back(line);
+			}
+			
 		}
 		file.close();
 	}
@@ -37,11 +33,30 @@ vector<string>  readFile(string filename) {
 		cout << endl;
 		commandlines= readFile(file);
 	}
+
 	return commandlines;
 
 }
 
 //create a writer function to write our results
+void writeFile(string filename, vector<vector<Token>>tokens) {
+	
+	ofstream file("Results-" + filename);
 
+	if (file.is_open()) {
+		file << "Token \tLexeme\n";
+		for (int i = 0; i < tokens.size(); i++) {
+			//get the token from a single line
+			vector<Token> Linetokens = tokens[i];
+				for (int j = 0; j < Linetokens.size(); j++) {
+					// get tokens from the line
+					Token token = Linetokens[j];
+					file << token.token << "\t" << token.lexeme << "\n";
+				}
+		}
+	}
+
+
+}
 
 #endif

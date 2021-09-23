@@ -45,7 +45,7 @@ int main()
 
 			if (character == " " || l.isSeparator(character)|| l.isOperator(character)|| c== line.length()-1) {
 
-				if (c == line.length() - 1 && character != " ") {
+				if (c == line.length() - 1 && character != " "&& l.isSeparator(character)&& l.isOperator(character)) {
 					word += character;
 				}
 
@@ -71,7 +71,6 @@ int main()
 					{
 						l.addToken("Unknown", word);
 						word = "";
-	
 					}
 
 				}
@@ -109,6 +108,11 @@ int main()
 		l.printTokens();
 		cout << endl;
 	}
+
+	vector<vector<Token>> tokens = l.getAllTokens();
+	writeFile(txtFile, tokens);
+
+
 	system("pause");
 
 }

@@ -34,7 +34,7 @@ private:
 	map<string, vector<string>> Tokenmap = { {"keyword", { "while" , "for", "integer", "if", "else", "endif",  "while", "return", "get", "put", "float","double","function","true","false" }},
 									{"identifier", {}},
 									{"operator", { "=" , "+" , "-" , "*" , "/" , "<=" , ">=" , ">" , "<", "!=" }},
-									{"separator", {";", "(" , ")", ",", "#"}},
+									{"separator", {";", "(" , ")", ",", "#","{","}","[","]"}},
 									{"integer", {}},
 									{"real", {}},
 									{"unknown", {}}
@@ -78,12 +78,10 @@ public:
 			}
 		
 		}
-
 		return false;
 	}
 	bool isInteger(string number) {// checks to see if it is an integer
-		if (isReal(number))
-		{
+		if (isReal(number)){
 			return false;
 		} 
 		else {
@@ -136,7 +134,9 @@ public:
 		allTokens.push_back(tokens);
 		tokens.clear();
 	}
-	
+	vector<vector<Token>> getAllTokens() {
+		return allTokens;
+	}
 
 };
 #endif
