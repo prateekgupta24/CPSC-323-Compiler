@@ -20,7 +20,6 @@ int main()
 {
 	Lexer l;
 	string txtFile;
-	int state =0;
 	bool comment = false;
 
 	//get file name
