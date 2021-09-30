@@ -1,0 +1,36 @@
+void addArray(integer array[])
+{
+integer total = 0; 
+for(integer i = 0; integer i <= 6; integer i++)
+{
+total = total + array[i];
+}
+}
+
+void ascendingOrder(integer array[])
+{
+integer x;
+integer temp;
+for(integer i = 0; integer i <= 6; integer i++)
+{
+for(integer x = integer i + 1; integer x <= 6; integer x++)
+{
+if(array[i] > array[j])
+{
+temp = array[i];
+array[i] = array[x];
+array[j] = temp;
+}
+}
+}
+}
+
+
+function main()
+{
+integer array = [12.0, 18, 15.2, 48.6, 4, 7];
+addArray(array);
+ascendingOrder(array);
+}
+
+        

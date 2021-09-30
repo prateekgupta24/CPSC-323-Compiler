@@ -1,0 +1,18 @@
+void divide(integer x, integer y)
+{
+double total = integer x/ integer y;
+}
+
+void multiply (integer x, integer y)
+{
+double total = integer x * integer y;
+}
+
+function main()
+{
+integer x = 13;
+integer y = 17;
+divide(x,y);
+multiply(x,y);
+return 0;
+}
