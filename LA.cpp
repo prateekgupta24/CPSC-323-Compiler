@@ -7,20 +7,13 @@
 #include <string>
 #include "file.h"
 using namespace std;
-/*
-	To Do
-	need more test commands to see if it is working properly - 3 text files with more than 10 line of test code
-	error handling
-	implement write file function from file.h
-
-
-*/
 
 int main()
 {
 	Lexer l;
 	string txtFile;
 	bool comment = false;
+	string prevop = "";//used to store an previous operator for ==,!=,<=,>=
 
 	//get file name
 	cout << "Enter File Name:";
@@ -44,11 +37,11 @@ int main()
 
 			if (character == " " || l.isSeparator(character)|| l.isOperator(character)|| c== line.length()-1) {
 
-				if (c == line.length() - 1 && character != " "&& l.isSeparator(character)&& l.isOperator(character)) {
+				if (c == line.length() - 1 && character != " "&& !l.isSeparator(character)&& !l.isOperator(character)) {//get the last character
 					word += character;
 				}
-
 				if ((word.length() != 0) && comment==false) {
+					
 					if (l.isKeyword(word)) {
 						l.addToken("Keyword", word);
 						word = "";
@@ -73,29 +66,45 @@ int main()
 					}
 
 				}
+
 				if (l.isSeparator(character)) {
-					//converts char into string
 					l.addToken("Separator", character);
 				}
 				else if (l.isOperator(character)) {
-
-					string prevchar(1, line[c - 1]);
+					string prevchar ="";
+					if (c != 0) { //check if character is not the first one in line
+						prevchar+=line[c - 1];
+					}
+					else prevchar = "b";
 					string nextchar(1, line[c + 1]);
 
 					//check for start of comment
 					if ((character == "*")&& (prevchar=="/") || (character == "*") && (nextchar == "/") || (character == "/") && (nextchar == "*")) {
-						//word += character;
-						//cout << "true- "<<word<<endl;
+
 						comment = true;
 					}
-					else if ((character == "/") && (prevchar == "*")) {//check of end of comment
+					else if ((character == "/") && (prevchar == "*")) {//check for end of comment
 						comment = false;
 						word = "";
 					}
-					else {
-						l.addToken("Operator", character);
-						word = "";
+					else if ((character == "=")&& (nextchar != "=")) { //check for "<=" , ">=","!=" "=="
+						if ((prevchar == "<") || (prevchar == ">") || (prevchar == "!") || (prevchar == ">")) {
+							l.addToken("Operator", prevop +character);
+							prevop = "";
+						}
+
 					}
+					else {
+						if (!((character == "<") && (nextchar == "=")) && !((character == ">") && (nextchar == "="))) {
+								l.addToken("Operator", character);
+						}
+						else
+						{
+							prevop = character;
+						}
+
+					}
+
 				}
 			}
 			else {

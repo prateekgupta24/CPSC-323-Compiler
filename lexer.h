@@ -18,14 +18,7 @@ struct Token {
 		cout << token << "\t" << lexeme << "\n";
 	}
 };
-/*
 
-	To Do:
-	Need to create add function to tokenmap to put identifiers, real, integer when we find them into the map (when it did not already exist)
-	error handling
-	make sure all possibilities are counted for
-
-*/
 class Lexer {
 private:
 	vector<Token> tokens; // stores tokens for one line of code
@@ -33,7 +26,7 @@ private:
 
 	map<string, vector<string>> Tokenmap = { {"keyword", { "while" , "for", "integer", "if", "else", "endif",  "while", "return", "get", "put", "float","double","function","true","false" }},
 									{"identifier", {}},
-									{"operator", { "=" , "+" , "-" , "*" , "/" , "<=" , ">=" , ">" , "<", "!=" }},
+									{"operator", { "=" , "+" , "-" , "*" , "/" , "<=" , ">=" , ">" , "<", "!=","==" }},
 									{"separator", {";", "(" , ")", ",", "#","{","}","[","]"}},
 									{"integer", {}},
 									{"real", {}},
