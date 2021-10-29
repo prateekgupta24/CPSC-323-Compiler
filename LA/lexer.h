@@ -37,6 +37,9 @@ struct Token {
 		}
 		return false;
 	}
+	bool operator!=(const Token &t)const {
+		return !(*this==t);
+	}
 };
 
 class Lexer {
