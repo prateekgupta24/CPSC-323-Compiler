@@ -13,7 +13,13 @@ struct Token {
 	
 	string token;
 	string lexeme;
-	
+	Token() {
+
+	}
+	Token(string t,string l) {
+		token = t;
+		lexeme = l;
+	}
 	void print() {
 		cout << token << "\t" << lexeme << "\n";
 	}
