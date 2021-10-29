@@ -16,7 +16,6 @@ Lexer LA()
 	bool comment = false;
 	int state = 0;
 	int fstate = 0;
-	//string prevop = "";//used to store an previous operator for ==,!=,<=,>=
 
 	//get file name
 	cout << "Enter File Name:";
