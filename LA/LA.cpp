@@ -60,7 +60,7 @@ Lexer LA()
 					comment = false;
 					word = "";
 				}
-				else if ((nextchar=="<"||nextchar == ">"|| nextchar == "=")&& (character != "+" && character != "-")) { // check for <=,>=,==,!=
+				else if (((character == "=") && ((nextchar == ">") || (nextchar == "="))) || ((character == "<") && (nextchar == "=")) || ((character == "!") && (nextchar == "="))) { // check for <=,=>,==,!=
 					state = 0;
 				}
 				else if ((character == "!") && (nextchar != "=")) { //check to see if ! is by itself
@@ -88,7 +88,7 @@ Lexer LA()
 					break;
 
 				case 1://operator
-					l.addToken("operator", word);
+					l.addToken("Operator", word);
 					word = "";
 					break;
 
