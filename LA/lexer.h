@@ -24,6 +24,19 @@ struct Token {
 	void print() {
 		cout << token << "\t" << lexeme << "\n";
 	}
+	bool operator==(const Token &t)const {
+		if (t.token == token) {
+			if (t.lexeme==lexeme)
+			{
+				return true;
+
+			}
+			else {
+				return false;
+			}
+		}
+		return false;
+	}
 };
 
 class Lexer {
