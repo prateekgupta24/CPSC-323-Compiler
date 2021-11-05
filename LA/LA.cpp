@@ -8,7 +8,9 @@
 #include "file.h"
 #include "LA.h"
 using namespace std;
-
+string get_name() {
+	return fileN;
+}
 Lexer LA()
 {
 	Lexer l;
@@ -28,7 +30,7 @@ Lexer LA()
 	// get line from lines and print out the tokens
 	for (int i = 0; i < lines.size(); i++) {
 		string line = lines[i];
-		cout << "Input: " << line << endl;
+		//cout << "Input: " << line << endl;
 		string word = "";
 
 		//go through each character of the line
@@ -149,16 +151,14 @@ Lexer LA()
 			}
 			
 		}
-		cout << "Tokens\t\tLexeme" << endl;
-		l.printTokens();
-		cout << endl;
+		
+		l.addTokens();
+		
 	}
 
 	vector<vector<Token>> tokens = l.getAllTokens();
-	writeFile(txtFile, tokens);
+	writeTokensFile(txtFile, tokens);
 
-
-	system("pause");
 	return l;
 
 }

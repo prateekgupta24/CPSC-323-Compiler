@@ -4,6 +4,7 @@
 #include "lexer.h"
 
 Lexer LA();
+string get_name();
 
 
 

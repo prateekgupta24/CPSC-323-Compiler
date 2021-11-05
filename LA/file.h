@@ -7,11 +7,14 @@
 #include <fstream>
 #include <vector>
 #include "lexer.h"
+
 using namespace std;
+
+string fileN="";
 
 // reads file and makes a vector of lines
 vector<string>  readFile(string filename) {
-
+	fileN = filename;
 	vector<string> commandlines;
 	string line;
 
@@ -38,10 +41,10 @@ vector<string>  readFile(string filename) {
 
 }
 
-//create a writer function to write our results
-void writeFile(string filename, vector<vector<Token>>tokens) {
+//writer function to write our results from Lexer
+void writeTokensFile(string filename, vector<vector<Token>>tokens) {
 	
-	ofstream file("Results-" + filename);
+	ofstream file("LA_Results-" + fileN);
 
 	if (file.is_open()) {
 		file << "Token \tLexeme\n";
