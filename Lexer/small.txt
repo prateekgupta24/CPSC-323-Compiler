@@ -1,8 +1,0 @@
-fucntion main()
-{
-integer a = 20;
-integer b = 13;
-integer sum;
-integer sum = integer a + integer b;
-return 0;
-}
